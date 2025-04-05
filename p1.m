@@ -47,4 +47,4 @@ end
 % columns = alpha confidence level
 % row = sigma
 stats = summary(conf_intervals, beta(4));
-stats
+stats % display stats
