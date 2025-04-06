@@ -1,7 +1,7 @@
 clearvars
 clc
 %% Question 1
-% rng(42); % set seed to reproduce the same charts    
+rng(42); % set seed to reproduce the same charts    
 addpath("utils") % add utils functions
 
 N       = 100; % sample size
@@ -36,7 +36,7 @@ for i=1:n_iter
     residuals = Y - X*beta_hat;
     
     % estimated standard error
-    R  = [0; 1; 0; 0]; % taking b3 only
+    R  = [0; 0; 1; 0]; % taking b3 only
     var_homo = estimated_variance(residuals, X);
     err_cov_homo(i, :, :) = sqrt(var_homo); % should we store all cov matrix?
     
@@ -60,5 +60,8 @@ for i=1:n_iter
 
 end
 
-rej_homo
-rej_het
+fprintf('Rechazos con matriz homocedástica: %d de %d (%.2f%%)\n', ...
+    rej_homo, n_iter, 100*(rej_homo/n_iter));
+
+fprintf('Rechazos con matriz robusta White: %d de %d (%.2f%%)\n', ...
+    rej_het, n_iter, 100*(rej_het/n_iter));
