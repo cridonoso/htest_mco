@@ -49,7 +49,7 @@ for j=1:length(N)
         
         t_stat_05 = (beta_hat(3) - 0.5) / sqrt(var_hat);
         t_stat_1  = (beta_hat(3) - 1) / sqrt(var_hat);
-        t_crit = tinv(1-alpha_p22, N(j)-K);
+        t_crit = tinv(1-alpha_p22/2, N(j)-K);
 
         if abs(t_stat_05) > t_crit
             b2test_reject(j, i, 1) = 1;

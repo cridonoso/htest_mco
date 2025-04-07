@@ -1,11 +1,10 @@
 function var_white = white_variance(residuals, X, R)
     %   Calculates estimated white-like variance 
     
-    % White's kernel
+    % White's kernel (vector-based solution)
     wkernel = X' * (residuals.^2 .* X);
     
-
-    % ================================
+    % Sequential loop-based solution =========================
     %K = size(X, 2);
     %N = size(X, 1);
     %wkernel  = zeros(K, K);
@@ -13,10 +12,10 @@ function var_white = white_variance(residuals, X, R)
     %    curr_X = X(i, :)';
     %    wkernel = wkernel + residuals(i).^2*(curr_X*curr_X');
     %end
+    % =========================================================
 
 
-    % variance 
-    % var_white = (X' * X)\(((X' * X)\wkernel));
+    % Variance 
     invX = inv(X'*X);
     var_white = invX * wkernel * invX;
 
@@ -25,5 +24,4 @@ function var_white = white_variance(residuals, X, R)
         var_white = R' * var_white * R;
     end
 
-    
 end

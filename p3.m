@@ -38,10 +38,10 @@ for i=1:n_iter
     % estimated standard error
     R  = [0; 0; 1; 0]; % taking b3 only
     var_homo = estimated_variance(residuals, X);
-    err_cov_homo(i, :, :) = sqrt(var_homo); % should we store all cov matrix?
+    err_cov_homo(i, :, :) = var_homo; % should we store all cov matrix?
     
     var_white = white_variance(residuals, X);
-    err_cov_hete(i, :, :) = sqrt(var_white);
+    err_cov_hete(i, :, :) = var_white;
 
     % t-test
     t_homo = (R'*beta_hat - beta*R) / sqrt(R' * var_homo * R);
@@ -59,6 +59,9 @@ for i=1:n_iter
     end
 
 end
+
+%% PLOT
+plot_covariances(err_cov_homo, err_cov_hete, './figures/covmatrices.pdf')
 
 fprintf('Rechazos con matriz homocedástica: %d de %d (%.2f%%)\n', ...
     rej_homo, n_iter, 100*(rej_homo/n_iter));

@@ -8,7 +8,6 @@ function summary_matrix = summary(conf_intervals, beta)
         for j=1:n_alpha
             current = conf_intervals(i, :, j, :); % get specific intervs.
             current = squeeze(current); % remove extra dims
-            size(current)
             result = (beta >= current(:,1)) & (beta <= current(:,2));
             npos = sum(result); % number of positives
             summary_matrix(i, j) = npos;
